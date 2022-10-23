@@ -111,13 +111,15 @@ void generateSquare()
 
     while(true)
     {
+        int i = 0;
         count++;
 
         for(int row = 0; row < grid_size; row++) 
         {
             for (int col = 0; col < grid_size; col++)
             {
-                int randNum = rand() % 9;
+                //ignores 0 by using +1
+                int randNum = rand() % 9 + 1;
                 bool duplicate = false;
 
                 for(int index = 0; index < 9; index++)
@@ -131,10 +133,9 @@ void generateSquare()
                 {
                     col--;
                 } else {
-                    int i = 0;
-                    numDup[i] = randNum;
+                    //i++ will skip 0
+                    numDup[i++] = randNum;
                     magicSquare[row][col] = randNum;
-                    i++;
                 }
             }
         }
@@ -142,6 +143,10 @@ void generateSquare()
         if(isLoShuMagicSquare(magicSquare))
         {
             break;
+        }
+        for(int index = 0; index < 9; index++)
+        {
+            numDup[index] = 0;
         }
     }
 }
