@@ -30,6 +30,7 @@ Print results:
 int count;
 const int grid_size = 3;
 int magicSquare[3][3];
+time_t t;
 
 int sumOfEachRow(const int array[][grid_size]) 
 {
@@ -99,8 +100,15 @@ bool isLoShuMagicSquare(const int array[][grid_size])
         return false;
 }
 
+//function to create square (a generator that creates based on size)
+//3x3 = 9 size, sum in each row = 15
+//for loop with if-statements to position numbers without reusing
 void generateSquare()
 {
+    srand((unsigned) time(&t));
+
+    int numDup[10]; //should duplicate exactly as randNum
+
     while(true)
     {
         count++;
@@ -109,26 +117,41 @@ void generateSquare()
         {
             for (int col = 0; col < grid_size; col++)
             {
-                //0-9, +1 ignores 0
-                int randNum = rand() % 9 + 1;
+                int randNum = rand() % 9;
+                bool duplicate = false;
 
+                for(int index = 0; index < 9; index++)
+                {
+                    if(randNum == numDup[index]) {
+                        duplicate = true;
+                    }
+                }
+
+                if(duplicate)
+                {
+                    col--;
+                } else {
+                    int i = 0;
+                    numDup[i] = randNum;
+                    magicSquare[row][col] = randNum;
+                    i++;
+                }
             }
+        }
+
+        if(isLoShuMagicSquare(magicSquare))
+        {
+            break;
         }
     }
 }
-
-int test[3][3] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
 
 void displaySquare()
 {
     printf("The total number of squares generated and tested before sueccess, the count: %d\n", count);
     for(int t = 0; t < 3; t++)
     {
-        printf("[%d %d %d]\n", test[t][0], test[t][1], test[t][2]);
+        printf("[%d %d %d]\n", magicSquare[t][0], magicSquare[t][1], magicSquare[t][2]);
     }
 }
 
@@ -157,12 +180,8 @@ int main()
         printf("this is a magic square\n");
     }
 
-    //generateSquare();
-    count = 5;
+    generateSquare();
     displaySquare();
-    //function to create square (a generator that creates based on size)
-    //3x3 = 9 size, sum in each row = 15
-    //for loop with if-statements to position numbers without reusing
 
     //call function to test 
     //cycles the create and test function until a correct magic square is formed
