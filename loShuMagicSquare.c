@@ -29,6 +29,7 @@ Print results:
 
 int count;
 const int grid_size = 3;
+int magicSquare[3][3];
 
 int sumOfEachRow(const int array[][grid_size]) 
 {
@@ -83,6 +84,8 @@ int sumOfDiagTopRightToLeft(const int array[][grid_size])
     return total;
 }
 
+//function to test square
+//checks the values of the array and returns true of false
 bool isLoShuMagicSquare(const int array[][grid_size]) 
 {
     if(
@@ -96,39 +99,70 @@ bool isLoShuMagicSquare(const int array[][grid_size])
         return false;
 }
 
-int main() 
+void generateSquare()
 {
-    //declare two [][]arrays
-        //one that is in magic square form
-        //one in incorrect form
-    int magicSquare1[3][3] = {
+    while(true)
+    {
+        count++;
+
+        for(int row = 0; row < grid_size; row++) 
+        {
+            for (int col = 0; col < grid_size; col++)
+            {
+                //0-9, +1 ignores 0
+                int randNum = rand() % 9 + 1;
+
+            }
+        }
+    }
+}
+
+int test[3][3] = {
         {1, 2, 3},
         {4, 5, 6},
         {7, 8, 9}
     };
 
-    int magicSquare2[3][3] = {
+void displaySquare()
+{
+    printf("The total number of squares generated and tested before sueccess, the count: %d\n", count);
+    for(int t = 0; t < 3; t++)
+    {
+        printf("[%d %d %d]\n", test[t][0], test[t][1], test[t][2]);
+    }
+}
+
+int main() 
+{
+    //declare two [][]arrays
+        //one that is in magic square form
+        //one in incorrect form
+    int incorrectSquare1[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    int correctSquare2[3][3] = {
         {4, 9, 2},
         {3, 5, 7},
         {8, 1, 6}
     };
 
-    if(isLoShuMagicSquare(magicSquare1) == false) {
+    if(isLoShuMagicSquare(incorrectSquare1) == false) {
         printf("this is not a magic square\n");
     }
 
-    if(isLoShuMagicSquare(magicSquare2) == true) {
+    if(isLoShuMagicSquare(correctSquare2) == true) {
         printf("this is a magic square\n");
     }
 
-
+    //generateSquare();
+    count = 5;
+    displaySquare();
     //function to create square (a generator that creates based on size)
     //3x3 = 9 size, sum in each row = 15
     //for loop with if-statements to position numbers without reusing
-
-
-    //function to test square
-    //checks the values of the array and returns true of false
 
     //call function to test 
     //cycles the create and test function until a correct magic square is formed
